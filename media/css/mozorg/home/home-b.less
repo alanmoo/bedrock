@@ -31,7 +31,7 @@
     &:before {
         background-position: 0 @bgOffset;
         height: @height;
-        top: 0px;
+        top: 0;
     }
 }
 
@@ -298,14 +298,14 @@ main {
     min-height: 300px;
     text-align: center;
 
-    h1,
+    h2,
     h3 {
         color: @fontHeader;
         font-family: @handwritten-font-family;
         text-shadow: none;
     }
 
-    h1 {
+    h2 {
         .font-size(24px);
         padding: 40px 0 0;
         text-transform: uppercase;
@@ -318,7 +318,7 @@ main {
     }
 
     @media @mq-phone-wide {
-        h1 {
+        h2 {
             .font-size(28px);
         }
     }
@@ -342,7 +342,7 @@ main {
                          90px 90px;
         min-height: 450px;
 
-        h1 {
+        h2 {
             .font-size(42px);
         }
 
@@ -379,7 +379,7 @@ main {
                          100px 100px;
         min-height: 576px;
 
-        h1 {
+        h2 {
             .font-size(56px);
         }
 
@@ -398,7 +398,7 @@ main {
         padding-bottom: 0;
         padding-top: 0;
 
-        h1 {
+        h2 {
             .flexbox;
             .flex-direction(column);
             .flex(1);
@@ -1047,21 +1047,16 @@ main {
         width: 522px;
     }
 
-    #fx-download-link {
+    #fxmobile-download-buttons {
+        // hide by default - show with JS based on platform
         display: none;
 
-        @media @mq-tablet {
-            display: inline-block;
-        }
-    }
-
-    #fxmobile-download-buttons {
         li {
             margin-bottom: 12px;
         }
 
-        @media @mq-tablet {
-            display: none;
+        &.visible {
+            display: block;
         }
     }
 }

@@ -13,9 +13,15 @@
     var $who = $('#who');
     var $innovate = $('#innovate');
 
-    // hide download button for up-to-date fx desktop users
-    if (mozClient.isFirefoxDesktop && mozClient._isFirefoxUpToDate(false)) {
+    // hide download button for up-to-date fx desktop/android users
+    if ((mozClient.isFirefoxDesktop || mozClient.isFirefoxAndroid) && mozClient._isFirefoxUpToDate(false)) {
         $('#nav-download-firefox').css('display', 'none');
+    }
+
+    // show mobile download buttons if on mobile platform and not fx
+    if (mozClient.isMobile && !mozClient.isFirefox) {
+        $('#fxmobile-download-buttons').addClass('visible');
+        $('#fx-download-link').addClass('hidden');
     }
 
     $toggleWho.on('click', function() {
