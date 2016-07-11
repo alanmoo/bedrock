@@ -150,15 +150,9 @@ main > header {
     }
 }
 
-#enable-js-container {
-    h2 {
-        margin: 0;
-        max-width: none;
-    }
-}
-
-.js #enable-js-container {
-    display: none;
+#enable-js-container h2 {
+    margin: 0;
+    max-width: none;
 }
 
 .plugins-error {
@@ -297,16 +291,12 @@ main > header {
         width: 20%;
     }
 
-    .status-unknown {
-        .plugin-status-detail {
-            width: 80%;
-        }
+    .status-unknown .plugin-status-detail {
+        width: 80%;
     }
 
-    .status-up-to-date {
-        .plugin-status-status {
-            width: 40%;
-        }
+    .status-up-to-date .plugin-status-status {
+        width: 40%;
     }
 
     .vulnerability-link-txt {
@@ -469,11 +459,9 @@ main > header {
     }
 }
 
-.html-rtl #sec-plugin-featured {
-    .plugin-meta span:first-child {
-        margin-right: 0;
-        margin-left: 1em;
-    }
+.html-rtl #sec-plugin-featured .plugin-meta span:first-child {
+    margin-right: 0;
+    margin-left: 1em;
 }
 
 /*--------------------------------------------------------------------------*/
@@ -522,7 +510,6 @@ main > header {
         // overrides styles from fxnewsletter-subscribe.less
         #newsletter-form-thankyou {
             float: none;
-            margin-left: auto;
             margin: 0 auto;
             text-align: center;
             width: 50%;
@@ -585,10 +572,8 @@ main > header {
     }
 }
 
-html[lang|="en"] {
-    .plugin-faq-container h2 {
-        text-transform: uppercase;
-    }
+html[lang|="en"] .plugin-faq-container h2 {
+    text-transform: uppercase;
 }
 
 .html-rtl .plugin-faq-container {

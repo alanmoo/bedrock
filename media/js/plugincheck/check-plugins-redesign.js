@@ -14,6 +14,16 @@ $(function() {
     var $notSupportedContainer = $('#not-supported-container');
     var $noPluginsContainer = $('#no-plugins-container');
 
+    // Plugin tables
+    var $featuredPluginsSection = $('#sec-plugin-featured');
+    var $featuredPluginsBody = $('#plugin-featured');
+    var $outdatedPluginsSection = $('#sec-plugin-outdated');
+    var $outdatedPluginsBody = $('#plugin-outdated');
+    var $unknownPluginsSection = $('#sec-plugin-unknown');
+    var $unknownPluginsBody = $('#plugin-unknown');
+    var $upToDatePluginsSection = $('#sec-plugin-uptodate');
+    var $upToDatePluginsBody = $('#plugin-uptodate');
+
     // Plugin button text and status strings
     var _updateNowButtonText = window.trans('buttonUpdateNow');
     var _learnMoreButtonText = window.trans('buttonLearnMore');
@@ -80,56 +90,37 @@ $(function() {
      * @param {object} plugin - Plugin object to render.
      */
     function showPlugin(plugin) {
-        var featuredPluginsSection = $('#sec-plugin-featured');
-        var featuredPluginsBody = $('#plugin-featured');
-        var featuredPluginsHtml = '';
-        var outdatedPluginsSection = $('#sec-plugin-outdated');
-        var outdatedPluginsBody = $('#plugin-outdated');
-        var outdatedPluginsHtml = '';
-        var unknownPluginsSection = $('#sec-plugin-unknown');
-        var unknownPluginsBody = $('#plugin-unknown');
-        var unknownPluginsHtml = '';
-        var upToDatePluginsSection = $('#sec-plugin-uptodate');
-        var upToDatePluginsBody = $('#plugin-uptodate');
-        var upToDatePluginsHtml = '';
+        var pluginHtml = '';
 
-        // If the latest response from the service was a vulnerable plugin,
-        // pass the object here.
+        // Response was a featured plugin.
         if (plugin.featured) {
-            featuredPluginsHtml = Mustache.to_html(featuredPluginsTmpl, plugin);
-            featuredPluginsBody.append(featuredPluginsHtml);
-
-            featuredPluginsSection.show();
+            pluginHtml = Mustache.to_html(featuredPluginsTmpl, plugin);
+            $featuredPluginsBody.append(pluginHtml);
+            $featuredPluginsSection.show();
             return;
         }
 
-        // If the latest response from the service was a vulnerable or outdated plugin,
-        // pass the object here.
-        if (plugin.status === 'vulnerable' || plugin.status === 'outdated') {
-            outdatedPluginsHtml = Mustache.to_html(otherPluginsTmpl, plugin);
-            outdatedPluginsBody.append(outdatedPluginsHtml);
-
-            outdatedPluginsSection.show();
+        // Response was a vulnerable or outdated plugin.
+        if (plugin.outdated) {
+            pluginHtml = Mustache.to_html(otherPluginsTmpl, plugin);
+            $outdatedPluginsBody.append(pluginHtml);
+            $outdatedPluginsSection.show();
             return;
         }
 
-        // If the latest response from the service was an unknown plugin,
-        // pass the object here.
+        // Response was an unknown plugin.
         if (plugin.status === 'unknown') {
-            unknownPluginsHtml = Mustache.to_html(unknownPluginsTmpl, plugin);
-            unknownPluginsBody.append(unknownPluginsHtml);
-
-            unknownPluginsSection.show();
+            pluginHtml = Mustache.to_html(unknownPluginsTmpl, plugin);
+            $unknownPluginsBody.append(pluginHtml);
+            $unknownPluginsSection.show();
             return;
         }
 
-        // If the latest response from the service was an up to date plugin,
-        // pass the object here.
+        // Response was an up to date plugin.
         if (plugin.status === 'latest' || plugin.status === 'newer') {
-            upToDatePluginsHtml = Mustache.to_html(otherPluginsTmpl, plugin);
-            upToDatePluginsBody.append(upToDatePluginsHtml);
-
-            upToDatePluginsSection.show();
+            pluginHtml = Mustache.to_html(otherPluginsTmpl, plugin);
+            $upToDatePluginsBody.append(pluginHtml);
+            $upToDatePluginsSection.show();
             return;
         }
     }
