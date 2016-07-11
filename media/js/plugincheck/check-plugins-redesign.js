@@ -33,6 +33,9 @@ $(function() {
     var _pluginStatusOutdated = window.trans('outdated');
     var _pluginStatusUnknown = window.trans('unknown');
 
+    // Total number of vulnerable plugins that are *not* featured plugins.
+    var _otherPluginVulnerableCount = 0;
+
     // Plugin icons
     var mediaURL = window.trans('mediaUrl') + 'img/plugincheck/app-icons/';
     var readerRegEx = /Adobe \b(Reader|Acrobat)\b.*/;
@@ -105,6 +108,12 @@ $(function() {
             pluginHtml = Mustache.to_html(otherPluginsTmpl, plugin);
             $outdatedPluginsBody.append(pluginHtml);
             $outdatedPluginsSection.show();
+
+            // If the plugin is vulnerable keep a count for
+            // displaying the "All Plugins" heading status.
+            if (plugin.status === 'vulnerable') {
+                _otherPluginVulnerableCount += 1;
+            }
             return;
         }
 
@@ -121,7 +130,6 @@ $(function() {
             pluginHtml = Mustache.to_html(otherPluginsTmpl, plugin);
             $upToDatePluginsBody.append(pluginHtml);
             $upToDatePluginsSection.show();
-            return;
         }
     }
 
@@ -225,6 +233,21 @@ $(function() {
     }
 
     /**
+     * Displays a count of vulnerable plugins contained in the "All Plugins"
+     * expandable heading, if any exist.
+     */
+    function displayPluginVulnerableStatus() {
+        var $vulnerableWarning;
+        var count;
+        if (_otherPluginVulnerableCount > 0) {
+            count = '(' + _otherPluginVulnerableCount + ')';
+            $vulnerableWarning = $('#vulnerable-warning');
+            $vulnerableWarning.find('.count').text(count);
+            $vulnerableWarning.removeClass('hidden');
+        }
+    }
+
+    /**
      * Counts the total number of plugins per category i.e vulnerable, outdated,
      * combines latest and newer as up to date, and lastly unknown.
      * @param {array} plugins - The array of plugins returned from the plugin service.
@@ -302,6 +325,7 @@ $(function() {
                     });
 
                     displayPlugins(response);
+                    displayPluginVulnerableStatus();
                     handleButtonInteractions();
                     $pluginsContainer.removeClass('hidden');
 

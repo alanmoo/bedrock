@@ -87,8 +87,8 @@ main > header {
         }
     }
     .tagline + p {
-        .open-sans-light;
         .font-size(18px);
+        .open-sans-light;
     }
 }
 
@@ -136,8 +136,8 @@ main > header {
 }
 
 .html-rtl .message-box h2:before {
-    margin-right: 0;
     margin-left: 7px;
+    margin-right: 0;
 }
 
 .firefox-out-of-date {
@@ -347,6 +347,18 @@ main > header {
     display: none;
 }
 
+#vulnerable-warning {
+    .font-size(18px);
+    color: #e55525;
+    font-style: italic;
+    padding: 0 .5em;
+
+    @media only screen and (max-width: @breakTablet) {
+        display: block;
+        padding: (@baseLine / 2) 0;
+    }
+}
+
 @media only screen and (max-width: @breakTablet) {
     #sec-plugin-unknown td {
         padding-left: 0;
@@ -360,33 +372,15 @@ main > header {
 /*--------------------------------------------------------------------------*/
 // Plugins accordion styles and page specific overrides
 
-#plugins-container .accordion h2 {
-    margin-bottom: @baseLine;
-}
-
-.accordion.accordion-initialized [data-accordion-role="tab"] {
-    padding: 15px 45px 15px 0;
-}
-
-.accordion.accordion-initialized [data-accordion-role="tabpanel"] {
-    padding: 0;
-}
-
-.accordion.accordion-initialized [data-accordion-role="tab"]:before {
-    float: right;
-    margin-right: -30px;
-    margin-left: 0;
-}
-
-.html-rtl {
-    .accordion.accordion-initialized [data-accordion-role="tab"] {
-        padding: 15px 0 15px 45px;
+#plugins-container {
+    .accordion h2 {
+        display: inline-block;
+        margin-bottom: @baseLine;
+        text-shadow: none;
     }
 
-    .accordion.accordion-initialized [data-accordion-role="tab"]:before {
-        float: left;
-        margin-right: 0;
-        margin-left: -30px;
+    .accordion.accordion-initialized [data-accordion-role="tabpanel"] {
+        padding: 0;
     }
 }
 
@@ -398,7 +392,6 @@ main > header {
 
     h2 {
         margin-bottom: @baseLine * 2;
-        text-align: center;
     }
 
     h4 {
@@ -460,8 +453,8 @@ main > header {
 }
 
 .html-rtl #sec-plugin-featured .plugin-meta span:first-child {
-    margin-right: 0;
     margin-left: 1em;
+    margin-right: 0;
 }
 
 /*--------------------------------------------------------------------------*/
@@ -542,6 +535,10 @@ main > header {
         max-width: 45%;
     }
 
+    [data-accordion-role="tab"] {
+        text-shadow: none;
+    }
+
     .support-link {
         .font-size(18px);
         float: right;
@@ -570,10 +567,6 @@ main > header {
     span.menurev:after {
         content:' \2630';
     }
-}
-
-html[lang|="en"] .plugin-faq-container h2 {
-    text-transform: uppercase;
 }
 
 .html-rtl .plugin-faq-container {

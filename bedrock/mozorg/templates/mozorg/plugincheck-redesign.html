@@ -98,7 +98,12 @@
 
       <div class="accordion accordion-auto-init">
         <section>
-          <h2 id="all-plugins-heading" data-accordion-role="tab">{{_('All plugins')}}</h2>
+          <h2 id="all-plugins-heading" data-accordion-role="tab">
+            {{_('All plugins')}}
+            <span id="vulnerable-warning" class="hidden">
+              <span class="count">(0)</span> {{ _('vulnerable') }}
+            </span>
+          </h2>
 
           <div data-accordion-role="tabpanel">
             <div id="sec-plugin-outdated">
