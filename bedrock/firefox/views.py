@@ -18,6 +18,7 @@ from bedrock.base.urlresolvers import reverse
 from commonware.response.decorators import xframe_allow
 from lib import l10n_utils
 from product_details.version_compare import Version
+from lib.l10n_utils.dotlang import lang_file_is_active
 
 from bedrock.firefox.firefox_details import firefox_desktop, firefox_android
 from bedrock.firefox.forms import SendToDeviceWidgetForm
@@ -535,29 +536,28 @@ def new(request):
     if request.GET.get('product', None) or request.GET.get('os', None):
         return HttpResponsePermanentRedirect(reverse('firefox.new'))
 
-    locale = l10n_utils.get_locale(request)
     scene = request.GET.get('scene', None)
-    v = request.GET.get('v', '')
+    context = {
+        'version': 'none',
+    }
+
+    # animation triggered for ?v=1 via data attribute in template
+    if request.GET.get('v', '') == '1':
+        context['version'] = '1'
 
     if scene == '2':
-        if locale == 'en-US':
-            if v == '1':
-                template = 'firefox/new/horizon/scene2.html'
-            else:
-                template = 'firefox/new/redesign/scene2.html'
+        if lang_file_is_active('firefox/new/horizon', l10n_utils.get_locale(request)):
+            template = 'firefox/new/horizon/scene2.html'
         else:
             template = 'firefox/new/scene2.html'
     # if no/incorrect scene specified, show scene 1
     else:
-        if locale == 'en-US':
-            if v == '1':
+        if lang_file_is_active('firefox/new/horizon', l10n_utils.get_locale(request)):
                 template = 'firefox/new/horizon/scene1.html'
-            else:
-                template = 'firefox/new/redesign/scene1.html'
         else:
             template = 'firefox/new/scene1.html'
 
-    return l10n_utils.render(request, template)
+    return l10n_utils.render(request, template, context)
 
 
 def sync(request):
